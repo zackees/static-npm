@@ -40,8 +40,8 @@ class Npm:
         file_founds: list[str] = []
 
         for root, _, files in os.walk(start_path):
+            file_founds.append(root)
             if tool_name in files:
-                file_founds.append(root)
                 tool_path = Path(root) / tool_name
                 break
 
