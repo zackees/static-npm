@@ -37,13 +37,19 @@ class Npm:
 
         # os.walk
         tool_path: Path | None = None
+        file_founds: list[str] = []
 
         for root, _, files in os.walk(start_path):
             if tool_name in files:
+                file_founds.append(root)
                 tool_path = Path(root) / tool_name
                 break
 
         if tool_path is None:
+            print("File not found in path")
+            print("Files found:")
+            for file_found in file_founds:
+                print(file_found)
             raise FileNotFoundError(f"Could not find {tool_name} in {start_path}")
 
         print(f"Tool path: {tool_path}")
