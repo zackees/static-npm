@@ -13,6 +13,10 @@ class Npx:
             self._binaries = ensure_npm_exists(self.version)
         return self._binaries
 
+    @property
+    def path(self) -> str:
+        return str(self.binaries.npx)
+
     def run(self, cmd_list: list[str], echo=True) -> RunningProcess:
         npx_path = self.binaries.npx
         cmd_list = [str(npx_path)] + cmd_list

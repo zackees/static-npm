@@ -19,6 +19,15 @@ Static version of npm so that you can install useful npm tools.
 
 # Api
 
+```python
+from static_npm import Npm, Node, Npx
+npm = Npm()
+print(f"npm path: {npm.path}")
+proc = npm.run(["--version"])
+proc.wait()
+assert "10.9.0" in proc.stdout
+```
+
 
 # Examples
 

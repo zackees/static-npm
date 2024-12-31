@@ -13,6 +13,10 @@ class Node:
             self._binaries = ensure_npm_exists(self.version)
         return self._binaries
 
+    @property
+    def path(self) -> str:
+        return str(self.binaries.node)
+
     def run(self, cmd_list: list[str], echo=True) -> RunningProcess:
         node_path = self.binaries.node
         cmd_list = [str(node_path)] + cmd_list
