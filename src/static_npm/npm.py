@@ -46,6 +46,13 @@ class Npm:
                 break
 
         if tool_path is None:
+            for root, _, files in os.walk(start_path.parent):
+                file_founds.append(root)
+                if tool_name in files:
+                    tool_path = Path(root) / tool_name
+                    break
+
+        if tool_path is None:
             print("File not found in path")
             print("Files found:")
             for file_found in file_founds:
