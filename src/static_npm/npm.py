@@ -29,7 +29,8 @@ class Npm:
         self, tool_name: str, cmd_list: list[str] | None = None, echo=True
     ) -> RunningProcess:
         cmd_list = cmd_list or []
-        tool_path = self.binaries.npm / "node_modules" / ".bin" / tool_name
+        tool_path = self.binaries.npm.parent / "node_modules" / ".bin" / tool_name
+        print(f"Tool path: {tool_path}")
         if not tool_path.exists():
             path = self.binaries.npm.parent
             tool_path = path / tool_name
