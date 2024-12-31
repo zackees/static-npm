@@ -27,3 +27,11 @@ def main_node() -> int:
 
 def main_npx() -> int:
     return run(Npx())
+
+
+def npm_tool(tool: str, args: list[str], echo=True) -> tuple[int, str]:
+    """Main entry point for the template_python_cmd package."""
+    npm = Npm()
+    proc = npm.run_tool(tool, args, echo=echo)
+    rtn = proc.wait()
+    return rtn, proc.stdout

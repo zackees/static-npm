@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from static_npm.ensure_npm_exists import LATEST, Binaries, ensure_npm_exists
 from static_npm.running_process import RunningProcess
 
@@ -14,8 +16,8 @@ class Node:
         return self._binaries
 
     @property
-    def path(self) -> str:
-        return str(self.binaries.node)
+    def path(self) -> Path:
+        return Path(self.binaries.npm)
 
     def run(self, cmd_list: list[str], echo=True) -> RunningProcess:
         node_path = self.binaries.node
