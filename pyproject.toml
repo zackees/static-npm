@@ -18,9 +18,14 @@ dependencies = [
 ]
 # Change this with the version number bump.
 version = "1.0.0"
+maintainers = [{name = "Zachary Vorhies"}]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["npm/*"]
 
 [tool.ruff]
 line-length = 200
