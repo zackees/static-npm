@@ -5,7 +5,7 @@ Unit test file.
 import os
 import unittest
 
-COMMAND = "static_npm"
+COMMAND = "static-npm --version"
 
 
 class MainTester(unittest.TestCase):
