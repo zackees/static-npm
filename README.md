@@ -10,9 +10,12 @@ Downloads and runs `npm`, `npx` and `node` through static binary downloads.
 
 # Cmds
 
-`static-npm` alias to `npm`
-`static-node` alias to `node`
-`static-npx` alias to `npx`
+```bash
+pip install static-npm
+static-npm --version
+static-node --version
+static-npx --version
+```
 
 # Api
 
