@@ -7,11 +7,13 @@ Downloads and runs `npm`, `npx` and `node` through static binary downloads.
 [![Ubuntu_Tests](https://github.com/zackees/static-npm/actions/workflows/test_ubuntu.yml/badge.svg)](https://github.com/zackees/static-npm/actions/workflows/test_ubuntu.yml)
 [![Win_Tests](https://github.com/zackees/static-npm/actions/workflows/test_win.yml/badge.svg)](https://github.com/zackees/static-npm/actions/workflows/test_win.yml)
 
+# Install
+
+`pip install static-npm`
 
 # Cmds
 
 ```bash
-pip install static-npm
 static-npm --version
 static-node --version
 static-npx --version
