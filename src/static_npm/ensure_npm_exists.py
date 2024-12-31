@@ -88,17 +88,20 @@ def decompress(src: Path) -> Path:
     dst: Path = src.with_suffix("")
     if dst.exists():
         return dst
-    if src.suffix == ".zip":
+    src_name = src.name
+    if src_name.endswith(".zip"):
         import zipfile
 
         with zipfile.ZipFile(src, "r") as zip_ref:
             zip_ref.extractall(dst)
-    elif src.suffix == ".tar.gz":
+    # elif src.suffix == ".tar.gz":
+    elif src_name.endswith(".tar.gz"):
         import tarfile
 
         with tarfile.open(src, "r:gz") as tar_ref:
             tar_ref.extractall(dst)
-    elif src.suffix == ".tar.xz":
+    # elif src.suffix == ".tar.xz":
+    elif src_name.endswith(".tar.xz"):
         import tarfile
 
         with tarfile.open(src, "r:xz") as tar_ref:
