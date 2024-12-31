@@ -12,6 +12,7 @@ LATEST = "22.12.0"
 class Binaries:
     npm: Path
     node: Path
+    npx: Path
 
 
 CACHE_DIR = Path(user_data_dir("static-npm", "zackees"))
@@ -129,9 +130,12 @@ def ensure_npm_exists(version: str = "22.12.0") -> Binaries:
     assert folder.exists(), "Decompressed folder does not exist"
     npm_path = get_executable(folder, "npm")
     node_path = get_executable(folder, "node")
+    npx_path = get_executable(folder, "npx")
     assert npm_path.exists(), f"npm binary does not exist at {npm_path}"
     assert node_path.exists(), f"node binary does not exist at {node_path}"
+    assert npx_path.exists(), f"npx binary does not exist at {npx_path}"
     return Binaries(
         npm=npm_path,
         node=node_path,
+        npx=npx_path,
     )
