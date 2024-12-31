@@ -5,6 +5,8 @@ from pathlib import Path
 from appdirs import user_data_dir
 from download import download
 
+LATEST = "22.12.0"
+
 
 @dataclass
 class Binaries:
