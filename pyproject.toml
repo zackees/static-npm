@@ -47,4 +47,6 @@ ignore_missing_imports = true
 disable_error_code = ["import-untyped"]
 
 [project.scripts]
-static-npm = "static_npm.cli:main"
+static-npm = "static_npm.cli:main_npm"
+static-node = "static_npm.cli:main_node"
+static-npx = "static_npm.cli:main_npx"
