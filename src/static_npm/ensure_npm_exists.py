@@ -128,12 +128,16 @@ def ensure_npm_exists(version: str = "22.12.0") -> Binaries:
     folder = folder.iterdir().__next__()
     # print(f"folder: {folder}")
     assert folder.exists(), "Decompressed folder does not exist"
-    npm_path = get_executable(folder, "npm")
-    node_path = get_executable(folder, "node")
-    npx_path = get_executable(folder, "npx")
-    assert npm_path.exists(), f"npm binary does not exist at {npm_path}"
-    assert node_path.exists(), f"node binary does not exist at {node_path}"
-    assert npx_path.exists(), f"npx binary does not exist at {npx_path}"
+    try:
+        npm_path = get_executable(folder, "npm")
+        node_path = get_executable(folder, "node")
+        npx_path = get_executable(folder, "npx")
+    except FileNotFoundError:
+        # print out all the files in the folder
+        print("Files in folder:")
+        for path in folder.iterdir():
+            print(path)
+        raise
     return Binaries(
         npm=npm_path,
         node=node_path,
