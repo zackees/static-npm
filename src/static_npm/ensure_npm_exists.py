@@ -111,18 +111,19 @@ def get_executable(src_dir: Path, name: str) -> Path:
 
 
 def ensure_npm_exists(version: str = "22.12.0") -> Binaries:
-    print("Downloading Windows binary...")
+    # print("Downloading Windows binary...")
     src = get_default(version)
     name = Path(src).name
     dst = CACHE_DIR / name
-    print(f"dst: {dst}")
-    download(src, str(dst))
-    print("Download complete.")
+    # print(f"dst: {dst}")
+    if not dst.exists():
+        # print(f"Downloading {src} to {dst}")
+        download(src, str(dst))
+    # print("Download complete.")
     folder = decompress(dst)
-    print(f"Decompressed to: {folder}")
-    print()
+    # print(f"Decompressed to: {folder}")
     folder = folder.iterdir().__next__()
-    print(f"folder: {folder}")
+    # print(f"folder: {folder}")
     assert folder.exists(), "Decompressed folder does not exist"
     npm_path = get_executable(folder, "npm")
     node_path = get_executable(folder, "node")

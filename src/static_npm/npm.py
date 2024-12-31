@@ -15,6 +15,5 @@ class Npm:
     def run(self, cmd_list: list[str], echo=True) -> RunningProcess:
         npm_path = self.binaries.npm
         cmd_list = [str(npm_path)] + cmd_list
-        # subprocess.call(cmd_list, shell=True)
         proc = RunningProcess(cmd_list, echo=echo)
         return proc
