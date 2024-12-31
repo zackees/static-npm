@@ -14,9 +14,14 @@ Downloads and runs `npm`, `npx` and `node` through static binary downloads.
 # Cmds
 
 ```bash
+# Get the versions of all tools
 static-npm --version
 static-node --version
 static-npx --version
+
+# Install live-server
+static-npm install -g live-server
+live-server
 ```
 
 # Api
