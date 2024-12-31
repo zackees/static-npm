@@ -4,6 +4,7 @@ from pathlib import Path
 
 from appdirs import user_data_dir
 from download import download
+from filelock import FileLock
 
 LATEST = "22.12.0"
 
@@ -14,6 +15,8 @@ class Binaries:
     node: Path
     npx: Path
 
+
+_LOCK = FileLock("static-npm.lock")
 
 CACHE_DIR = Path(user_data_dir("static-npm", "zackees"))
 
@@ -114,32 +117,33 @@ def get_executable(src_dir: Path, name: str) -> Path:
 
 
 def ensure_npm_exists(version: str = "22.12.0") -> Binaries:
-    # print("Downloading Windows binary...")
-    src = get_default(version)
-    name = Path(src).name
-    dst = CACHE_DIR / name
-    # print(f"dst: {dst}")
-    if not dst.exists():
-        # print(f"Downloading {src} to {dst}")
-        download(src, str(dst))
-    # print("Download complete.")
-    folder = decompress(dst)
-    # print(f"Decompressed to: {folder}")
-    folder = folder.iterdir().__next__()
-    # print(f"folder: {folder}")
-    assert folder.exists(), "Decompressed folder does not exist"
-    try:
-        npm_path = get_executable(folder, "npm")
-        node_path = get_executable(folder, "node")
-        npx_path = get_executable(folder, "npx")
-    except FileNotFoundError:
-        # print out all the files in the folder
-        print("Files in folder:")
-        for path in folder.iterdir():
-            print(path)
-        raise
-    return Binaries(
-        npm=npm_path,
-        node=node_path,
-        npx=npx_path,
-    )
+    with _LOCK:
+        # print("Downloading Windows binary...")
+        src = get_default(version)
+        name = Path(src).name
+        dst = CACHE_DIR / name
+        # print(f"dst: {dst}")
+        if not dst.exists():
+            # print(f"Downloading {src} to {dst}")
+            download(src, str(dst))
+        # print("Download complete.")
+        folder = decompress(dst)
+        # print(f"Decompressed to: {folder}")
+        folder = folder.iterdir().__next__()
+        # print(f"folder: {folder}")
+        assert folder.exists(), "Decompressed folder does not exist"
+        try:
+            npm_path = get_executable(folder, "npm")
+            node_path = get_executable(folder, "node")
+            npx_path = get_executable(folder, "npx")
+        except FileNotFoundError:
+            # print out all the files in the folder
+            print("Files in folder:")
+            for path in folder.iterdir():
+                print(path)
+            raise
+        return Binaries(
+            npm=npm_path,
+            node=node_path,
+            npx=npx_path,
+        )
