@@ -1,5 +1,6 @@
-# template-python-cmd
-A template for quickly making a python lib that has a command line program attached
+# static-npm
+
+Static version of npm so that you can install useful npm tools.
 
 [![Linting](https://github.com/zackees/static-npm/actions/workflows/lint.yml/badge.svg)](https://github.com/zackees/static-npm/actions/workflows/lint.yml)
 
