@@ -135,6 +135,9 @@ def ensure_npm_exists(version: str = "22.12.0") -> Binaries:
         folder = folder.iterdir().__next__()
         # print(f"folder: {folder}")
         assert folder.exists(), "Decompressed folder does not exist"
+        bin = folder / "bin"
+        if bin.exists():
+            folder = bin
         try:
             npm_path = get_executable(folder, "npm")
             node_path = get_executable(folder, "node")
