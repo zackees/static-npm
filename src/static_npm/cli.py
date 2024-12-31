@@ -29,9 +29,13 @@ def main_npx() -> int:
     return run(Npx())
 
 
-def npm_tool(tool: str, args: list[str], echo=True) -> tuple[int, str]:
+def npm_tool() -> tuple[int, str]:
     """Main entry point for the template_python_cmd package."""
+    parser = argparse.ArgumentParser(description="npm static binary")
+    parser.add_argument("tool", help="Tool to run")
+    parser.add_argument("--echo", action="store_true", help="Echo command")
+    args, other_args = parser.parse_known_args()
     npm = Npm()
-    proc = npm.run_tool(tool, args, echo=echo)
+    proc = npm.run_tool(args.tool, other_args, echo=args.echo)
     rtn = proc.wait()
     return rtn, proc.stdout
