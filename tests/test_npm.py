@@ -4,7 +4,7 @@ Unit test file.
 
 import unittest
 
-from static_npm.app import Npm
+from static_npm.npm import Npm
 
 
 class MainTester(unittest.TestCase):

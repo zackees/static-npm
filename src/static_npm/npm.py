@@ -22,7 +22,3 @@ class Npm:
         # subprocess.call(cmd_list, shell=True)
         proc = RunningProcess(cmd_str)
         return proc
-
-
-if __name__ == "__main__":
-    ensure_npm_exists()
