@@ -21,7 +21,7 @@ static-npx --version
 
 # Install live-server
 static-npm install -g live-server
-static-npm-tool live-server
+static-npm-tool live-server --version
 ```
 
 # Api

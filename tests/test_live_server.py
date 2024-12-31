@@ -15,7 +15,8 @@ class MainTester(unittest.TestCase):
         npm = Npm()
         npm.run(["install", "-g", "live-server"])
         proc = npm.run_tool("live-server", ["--version"])
-        rtn, stdout = proc.wait(), proc.stdout
+        rtn = proc.wait()
+        stdout = proc.stdout
         self.assertEqual(0, rtn)
         self.assertIn("live-server", stdout)
 
