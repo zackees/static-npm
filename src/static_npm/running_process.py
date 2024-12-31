@@ -12,7 +12,7 @@ class RunningProcess:
 
     def __init__(
         self,
-        command: str,
+        command: str | list[str],
         cwd: Path | None = None,
         check: bool = False,
         auto_run: bool = True,
@@ -28,6 +28,8 @@ class RunningProcess:
             auto_run (bool): If True, automatically run the command when the instance is created.
             echo (bool): If True, print the output of the command to the console in real-time.
         """
+        if isinstance(command, list):
+            command = subprocess.list2cmdline(command)
         self.command = command
         self.cwd = str(cwd) if cwd is not None else None
         self.buffer: list[str] = []
