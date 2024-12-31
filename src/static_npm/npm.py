@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from static_npm.ensure_npm_exists import LATEST, Binaries, ensure_npm_exists
@@ -29,7 +30,22 @@ class Npm:
         self, tool_name: str, cmd_list: list[str] | None = None, echo=True
     ) -> RunningProcess:
         cmd_list = cmd_list or []
-        tool_path = self.binaries.npm.parent / "node_modules" / ".bin" / tool_name
+
+        start_path = self.binaries.npm.parent
+
+        # walk path to find tool
+
+        # os.walk
+        tool_path: Path | None = None
+
+        for root, _, files in os.walk(start_path):
+            if tool_name in files:
+                tool_path = Path(root) / tool_name
+                break
+
+        if tool_path is None:
+            raise FileNotFoundError(f"Could not find {tool_name} in {start_path}")
+
         print(f"Tool path: {tool_path}")
         if not tool_path.exists():
             path = self.binaries.npm.parent
