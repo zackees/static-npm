@@ -13,7 +13,11 @@ class MainTester(unittest.TestCase):
 
     def test_imports(self) -> None:
         """Test command line interface (CLI)."""
-        rtn = os.system(COMMAND)
+        rtn = os.system("static-npm --version")
+        self.assertEqual(0, rtn)
+        rtn = os.system("static-npm --version")
+        self.assertEqual(0, rtn)
+        rtn = os.system("static-npm --version")
         self.assertEqual(0, rtn)
 
 
