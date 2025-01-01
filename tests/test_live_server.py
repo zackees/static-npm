@@ -7,7 +7,7 @@ import unittest
 
 import httpx  # type: ignore
 
-from static_npm.npm_tool import NpmTool
+from static_npm import NpmTool
 
 PORT = 8375
 
