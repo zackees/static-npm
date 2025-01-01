@@ -4,17 +4,10 @@ Unit test file.
 
 import time
 import unittest
-from pathlib import Path
 
 import httpx  # type: ignore
 
 from static_npm.npm_tool import NpmTool
-from static_npm.paths import CACHE_DIR
-
-
-def _get_tool_dir(tool: str) -> Path:
-    return CACHE_DIR / tool
-
 
 PORT = 8375
 

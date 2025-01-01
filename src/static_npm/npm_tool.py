@@ -46,9 +46,13 @@ class NpmTool:
         npm.run(["install", self.tool, "--prefix", str(self.tool_dir)])
         self.install_attempt = True
 
-    def run(self, args: list[str]) -> RunningProcess:
+    def run(
+        self, args: list[str], cwd: Path | None = None, echo=False
+    ) -> RunningProcess:
         if not self.install_attempt:
             self.install()
         npx = Npx()
-        proc = npx.run(["--prefix", str(self.tool_dir), self.tool, *args])
+        proc = npx.run(
+            ["--prefix", str(self.tool_dir), self.tool, *args], cwd=cwd, echo=echo
+        )
         return proc
