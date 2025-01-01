@@ -18,7 +18,7 @@ dependencies = [
 
 ]
 # Change this with the version number bump.
-version = "1.0.7"
+version = "1.0.8"
 maintainers = [{name = "Zachary Vorhies"}]
 
 [tool.setuptools]
