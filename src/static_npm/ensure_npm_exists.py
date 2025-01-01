@@ -129,8 +129,7 @@ def ensure_npm_exists(version: str = "22.12.0") -> Binaries:
         dst = CACHE_DIR / name
         # print(f"dst: {dst}")
         if not dst.exists():
-            # print(f"Downloading {src} to {dst}")
-            download(src, str(dst))
+            download(src, str(dst), replace=True)
         # print("Download complete.")
         folder = decompress(dst)
         # print(f"Decompressed to: {folder}")
