@@ -19,8 +19,10 @@ class Npx:
     def path(self) -> Path:
         return Path(self.binaries.npm)
 
-    def run(self, cmd_list: list[str], echo=True) -> RunningProcess:
+    def run(
+        self, cmd_list: list[str], echo=True, cwd: Path | None = None
+    ) -> RunningProcess:
         npx_path = self.binaries.npx
         cmd_list = [str(npx_path)] + cmd_list
-        proc = RunningProcess(cmd_list, echo=echo)
+        proc = RunningProcess(cmd_list, echo=echo, cwd=cwd)
         return proc
