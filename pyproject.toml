@@ -13,7 +13,8 @@ classifiers = ["Programming Language :: Python :: 3"]
 dependencies = [
     "download",
     "appdirs",
-    "filelock"
+    "filelock",
+    "httpx"
 
 ]
 # Change this with the version number bump.
