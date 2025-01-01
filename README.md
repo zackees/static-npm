@@ -24,13 +24,15 @@ static-npx --version
 static-npm install -g live-server
 ```
 
-# Example: Install npm `live-server`
+# Example: Install npm `live-server` and use it
 
 ```python
 # NpmTool handle downloading and running a npm based tool installed in isolation.
+import time
 from static_npm import NpmTool
 live_server = NpmTool("live-server").run([f"--port=8888"])
-# Windows browser should pop up.
+# Web browser should pop up.
+time.sleep(10)
 live_server.kill()
 ```
 
