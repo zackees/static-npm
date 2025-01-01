@@ -1,4 +1,5 @@
 import subprocess
+import threading
 from pathlib import Path
 
 
@@ -61,20 +62,25 @@ class RunningProcess:
             text=True,  # Automatically decode bytes to str
         )
 
-        try:
-            # Stream output line by line
-            assert self.proc.stdout is not None
-            for line in iter(self.proc.stdout.readline, ""):
-                line = line.rstrip()
-                if self.echo:
-                    print(line)  # Print to console in real time
-                self.buffer.append(line)
+        def output_reader():
+            try:
+                assert self.proc.stdout is not None
+                for line in iter(self.proc.stdout.readline, ""):
+                    line = line.rstrip()
+                    if self.echo:
+                        print(line)  # Print to console in real time
+                    self.buffer.append(line)
+            finally:
+                if self.proc.stdout:
+                    self.proc.stdout.close()
 
-            # Wait for the process to complete
-            self.proc.wait()
-        finally:
-            if self.proc.stdout:
-                self.proc.stdout.close()
+        # Start output reader thread
+        reader_thread = threading.Thread(target=output_reader, daemon=True)
+        reader_thread.start()
+
+        # Wait for the process and reader thread to complete
+        self.proc.wait()
+        reader_thread.join()
 
         if self.proc.returncode != 0:
             if self.check:
