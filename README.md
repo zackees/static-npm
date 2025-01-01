@@ -26,38 +26,38 @@ static-npm install -g live-server
 # Api
 
 ```python
-from static_npm import Npm, Node, Npx
+from pathlib import Path
+from static_npm.npm import Npm
+from static_npm.npx import Npx
+from static_npm.paths import CACHE_DIR
+
+def _get_tool_dir(tool: str) -> Path:
+    return CACHE_DIR / tool
+
 npm = Npm()
-print(f"npm path: {npm.path}")
-proc = npm.run(["--version"])
-proc.wait()
-assert "10.9.0" in proc.stdout
+npx = Npx()
+tool_dir = _get_tool_dir("live-server")
+npm.run(["install", "live-server", "--prefix", str(tool_dir)])
+proc = npx.run(["live-server", "--version", "--prefix", str(tool_dir)])
+rtn = proc.wait()
+stdout = proc.stdout
+assert 0 == rtn
+assert "live-server" in stdout
 ```
 
 
 # Examples
 
 ```python
-import unittest
-from static_npm.npm import Npm
-
-class MainTester(unittest.TestCase):
-    """Main tester class."""
-
-    def test_npm_run_version(self) -> None:
-        """Test command line interface (CLI)."""
         npm = Npm()
-        proc = npm.run(["--version"])
+        npx = Npx()
+        tool_dir = _get_tool_dir("live-server")
+        npm.run(["install", "live-server", "--prefix", str(tool_dir)])
+        proc = npx.run(["live-server", "--version", "--prefix", str(tool_dir)])
         rtn = proc.wait()
-        version = proc.stdout
-        print(f"Version: {version}")
-        self.assertIn("10.9.0", version)
+        stdout = proc.stdout
         self.assertEqual(0, rtn)
-        self.assertEqual(npm.binaries.npm.exists(), True)
-
-
-if __name__ == "__main__":
-    unittest.main()
+        self.assertIn("live-server", stdout)
 ```
 
 To develop software, run `. ./activate.sh`
