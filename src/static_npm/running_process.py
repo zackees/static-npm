@@ -38,10 +38,11 @@ class RunningProcess:
         self.check = check
         self.auto_run = auto_run
         self.echo = echo
+        self.reader_thread: threading.Thread | None = None
         if auto_run:
             self.run()
 
-    def run(self) -> str:
+    def run(self) -> None:
         """
         Execute the command and stream its output in real-time.
 
@@ -75,20 +76,8 @@ class RunningProcess:
                     self.proc.stdout.close()
 
         # Start output reader thread
-        reader_thread = threading.Thread(target=output_reader, daemon=True)
-        reader_thread.start()
-
-        # Wait for the process and reader thread to complete
-        self.proc.wait()
-        reader_thread.join()
-
-        if self.proc.returncode != 0:
-            if self.check:
-                raise subprocess.CalledProcessError(
-                    self.proc.returncode, self.command, output=self.stdout
-                )
-
-        return "\n".join(self.buffer)
+        self.reader_thread = threading.Thread(target=output_reader, daemon=True)
+        self.reader_thread.start()
 
     def wait(self) -> int:
         """
@@ -99,7 +88,10 @@ class RunningProcess:
         """
         if self.proc is None:
             raise ValueError("Process is not running.")
-        return self.proc.wait()
+        rtn = self.proc.wait()
+        assert self.reader_thread is not None
+        self.reader_thread.join()
+        return rtn
 
     def kill(self) -> None:
         """
