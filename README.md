@@ -22,6 +22,9 @@ static-npx --version
 
 # Install live-server
 static-npm install -g live-server
+
+# Install and run in isolated environment.
+static-npm-tool live-server --port=1234
 ```
 
 # Example: Install npm `live-server` and use it
