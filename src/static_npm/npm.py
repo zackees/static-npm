@@ -30,16 +30,3 @@ class Npm:
         cmd_list = [str(npm_path)] + cmd_list
         proc = RunningProcess(cmd_list, echo=echo)
         return proc
-
-    def run_tool(
-        self, tool_name: str, cmd_list: list[str] | None = None, echo=True
-    ) -> RunningProcess:
-        cmd_list = cmd_list or []
-        global_path = self.global_prefix_path()
-        print(f"Global path: {global_path}")
-        tool_path: Path = global_path / tool_name
-        if not tool_path.exists():
-            raise FileNotFoundError(f"Could not find {tool_name} in {global_path}")
-        cmd_list = [str(tool_path)] + cmd_list
-        proc = RunningProcess(cmd_list, echo=echo)
-        return proc
