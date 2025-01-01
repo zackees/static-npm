@@ -32,5 +32,8 @@ def main_npx() -> int:
 
 def main_npm_tool() -> int:
     _, args = parse_args()
-    proc = NpmTool(args[0]).run(args[1:])
-    return proc.wait()
+    try:
+        proc = NpmTool(args[0]).run(args[1:])
+        return proc.wait()
+    except KeyboardInterrupt:
+        return 1
