@@ -33,7 +33,7 @@ class MainTester(unittest.TestCase):
             ["--prefix", str(tool_dir), "live-server", f"--port={PORT}", "--no-browser"]
         )
 
-        timeout = time.time() + 60
+        timeout = time.time() + 120
         while time.time() < timeout:
             try:
                 response = httpx.get(f"http://localhost:{PORT}")
