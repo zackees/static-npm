@@ -8,8 +8,7 @@ from pathlib import Path
 
 import httpx  # type: ignore
 
-from static_npm.npm import Npm
-from static_npm.npx import Npx
+from static_npm.npm_tool import NpmTool
 from static_npm.paths import CACHE_DIR
 
 
@@ -25,14 +24,9 @@ class MainTester(unittest.TestCase):
 
     def test_imports(self) -> None:
         """Test command line interface (CLI)."""
-        npm = Npm()
-        npx = Npx()
-        tool_dir = _get_tool_dir("live-server")
-        tool_dir.mkdir(exist_ok=True, parents=True)
-        npm.run(["install", "live-server", "--prefix", str(tool_dir)])
-        proc = npx.run(
-            ["--prefix", str(tool_dir), "live-server", f"--port={PORT}", "--no-browser"]
-        )
+        live_server = NpmTool("live-server")
+        live_server.install()
+        proc = live_server.run([f"--port={PORT}", "--no-browser"])
 
         timeout = time.time() + 120
         while time.time() < timeout:
