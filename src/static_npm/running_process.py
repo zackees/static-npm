@@ -58,7 +58,7 @@ class RunningProcess:
             self.command,
             shell=True,
             cwd=self.cwd,
-            bufsize=64,
+            bufsize=256,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,  # Merge stderr into stdout
             text=True,  # Automatically decode bytes to str
