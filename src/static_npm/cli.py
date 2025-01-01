@@ -19,15 +19,24 @@ def parse_args() -> tuple[argparse.Namespace, list[str]]:
 
 def main_npm() -> int:
     """Main entry point for the template_python_cmd package."""
-    return run(Npm())
+    try:
+        return run(Npm())
+    except KeyboardInterrupt:
+        return 1
 
 
 def main_node() -> int:
-    return run(Node())
+    try:
+        return run(Node())
+    except KeyboardInterrupt:
+        return 1
 
 
 def main_npx() -> int:
-    return run(Npx())
+    try:
+        return run(Npx())
+    except KeyboardInterrupt:
+        return 1
 
 
 def main_npm_tool() -> int:
