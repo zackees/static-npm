@@ -46,20 +46,6 @@ assert "live-server" in stdout
 ```
 
 
-# Examples
-
-```python
-        npm = Npm()
-        npx = Npx()
-        tool_dir = _get_tool_dir("live-server")
-        npm.run(["install", "live-server", "--prefix", str(tool_dir)])
-        proc = npx.run(["live-server", "--version", "--prefix", str(tool_dir)])
-        rtn = proc.wait()
-        stdout = proc.stdout
-        self.assertEqual(0, rtn)
-        self.assertIn("live-server", stdout)
-```
-
 To develop software, run `. ./activate.sh`
 
 # Windows
