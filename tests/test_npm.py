@@ -7,7 +7,7 @@ import unittest
 from static_npm.npm import Npm
 
 
-class MainTester(unittest.TestCase):
+class NpmTester(unittest.TestCase):
     """Main tester class."""
 
     def test_npm_run_version(self) -> None:

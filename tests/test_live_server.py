@@ -12,10 +12,10 @@ from static_npm import NpmTool
 PORT = 8375
 
 
-class MainTester(unittest.TestCase):
+class LiveServerTester(unittest.TestCase):
     """Main tester class."""
 
-    def test_imports(self) -> None:
+    def test_live_server_instantiates_and_responds(self) -> None:
         """Test command line interface (CLI)."""
         live_server = NpmTool("live-server")
         live_server.install()
