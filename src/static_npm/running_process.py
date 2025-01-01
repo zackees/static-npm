@@ -39,6 +39,7 @@ class RunningProcess:
         self.auto_run = auto_run
         self.echo = echo
         self.reader_thread: threading.Thread | None = None
+        self.shutdown: threading.Event = threading.Event()
         if auto_run:
             self.run()
 
@@ -67,6 +68,8 @@ class RunningProcess:
             try:
                 assert self.proc.stdout is not None
                 for line in iter(self.proc.stdout.readline, ""):
+                    if self.shutdown.is_set():
+                        break
                     line = line.rstrip()
                     if self.echo:
                         print(line)  # Print to console in real time
@@ -90,7 +93,7 @@ class RunningProcess:
             raise ValueError("Process is not running.")
         rtn = self.proc.wait()
         assert self.reader_thread is not None
-        self.reader_thread.join()
+        self.reader_thread.join(timeout=1)
         return rtn
 
     def kill(self) -> None:
@@ -102,6 +105,7 @@ class RunningProcess:
         """
         if self.proc is None:
             raise ValueError("Process is not running.")
+        self.shutdown.set()
         self.proc.kill()
 
     def terminate(self) -> None:
@@ -113,6 +117,7 @@ class RunningProcess:
         """
         if self.proc is None:
             raise ValueError("Process is not running.")
+        self.shutdown.set()
         self.proc.terminate()
 
     @property
