@@ -68,12 +68,12 @@ class RunningProcess:
             try:
                 assert self.proc.stdout is not None
                 for line in iter(self.proc.stdout.readline, ""):
-                    if self.shutdown.is_set():
-                        break
                     line = line.rstrip()
                     if self.echo:
                         print(line)  # Print to console in real time
                     self.buffer.append(line)
+                    if self.shutdown.is_set():
+                        break
             finally:
                 if self.proc.stdout:
                     self.proc.stdout.close()
@@ -92,6 +92,8 @@ class RunningProcess:
         if self.proc is None:
             raise ValueError("Process is not running.")
         rtn = self.proc.wait()
+        assert self.proc.stdout is not None
+        self.proc.stdout.close()
         assert self.reader_thread is not None
         self.reader_thread.join(timeout=1)
         return rtn
