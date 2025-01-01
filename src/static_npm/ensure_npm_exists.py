@@ -2,7 +2,7 @@ import platform
 from dataclasses import dataclass
 from pathlib import Path
 
-from appdirs import user_data_dir
+from static_npm.paths import CACHE_DIR
 from download import download
 from filelock import FileLock
 
@@ -18,7 +18,6 @@ class Binaries:
 
 _LOCK = FileLock("static-npm.lock")
 
-CACHE_DIR = Path(user_data_dir("static-npm", "zackees"))
 
 BASE_URL = "https://github.com/zackees/static-npm/raw/refs/heads/main/npm"
 
