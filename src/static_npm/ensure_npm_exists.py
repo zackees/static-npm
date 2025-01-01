@@ -17,7 +17,9 @@ class Binaries:
     npx: Path
 
 
-_LOCK = FileLock("static-npm.lock")
+Path(CACHE_DIR).mkdir(parents=True, exist_ok=True)
+
+_LOCK = FileLock((str(CACHE_DIR / "static-npm.lock")))
 
 
 BASE_URL = "https://github.com/zackees/static-npm/raw/refs/heads/main/npm"
