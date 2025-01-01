@@ -4,6 +4,7 @@ Downloads and runs `npm`, `npx` and `node` through static binary downloads.
 
 [![Linting](https://github.com/zackees/static-npm/actions/workflows/lint.yml/badge.svg)](https://github.com/zackees/static-npm/actions/workflows/lint.yml)
 [![MacOS_Tests](https://github.com/zackees/static-npm/actions/workflows/test_macos.yml/badge.svg)](https://github.com/zackees/static-npm/actions/workflows/test_macos.yml)
+[![MacOSx86_Tests](https://github.com/zackees/static-npm/actions/workflows/test_macos_x64.yml/badge.svg)](https://github.com/zackees/static-npm/actions/workflows/test_macos_x64.yml)
 [![Ubuntu_Tests](https://github.com/zackees/static-npm/actions/workflows/test_ubuntu.yml/badge.svg)](https://github.com/zackees/static-npm/actions/workflows/test_ubuntu.yml)
 [![Win_Tests](https://github.com/zackees/static-npm/actions/workflows/test_win.yml/badge.svg)](https://github.com/zackees/static-npm/actions/workflows/test_win.yml)
 
