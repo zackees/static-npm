@@ -2,9 +2,10 @@ import platform
 from dataclasses import dataclass
 from pathlib import Path
 
-from static_npm.paths import CACHE_DIR
 from download import download
 from filelock import FileLock
+
+from static_npm.paths import CACHE_DIR
 
 LATEST = "22.12.0"
 
