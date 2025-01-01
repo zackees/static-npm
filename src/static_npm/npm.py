@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 from static_npm.ensure_npm_exists import LATEST, Binaries, ensure_npm_exists
@@ -20,6 +19,12 @@ class Npm:
     def path(self) -> Path:
         return Path(self.binaries.npm)
 
+    def global_bin_path(self) -> Path:
+        return Path(self.run(["root", "-g"]).stdout.strip())
+
+    def global_prefix_path(self) -> Path:
+        return Path(self.run(["prefix", "-g"]).stdout.strip())
+
     def run(self, cmd_list: list[str], echo=True) -> RunningProcess:
         npm_path = self.binaries.npm
         cmd_list = [str(npm_path)] + cmd_list
@@ -30,43 +35,11 @@ class Npm:
         self, tool_name: str, cmd_list: list[str] | None = None, echo=True
     ) -> RunningProcess:
         cmd_list = cmd_list or []
-
-        start_path = self.binaries.npm.parent
-
-        # walk path to find tool
-
-        # os.walk
-        tool_path: Path | None = None
-        file_founds: list[str] = []
-
-        for root, _, files in os.walk(start_path):
-            file_founds.append(root)
-            if tool_name in files:
-                tool_path = Path(root) / tool_name
-                break
-
-        if tool_path is None:
-            for root, _, files in os.walk(start_path.parent):
-                file_founds.append(root)
-                if tool_name in files:
-                    tool_path = Path(root) / tool_name
-                    break
-
-        if tool_path is None:
-            print("File not found in path")
-            print("Files found:")
-            for file_found in file_founds:
-                print(file_found)
-            raise FileNotFoundError(f"Could not find {tool_name} in {start_path}")
-
-        print(f"Tool path: {tool_path}")
+        global_path = self.global_prefix_path()
+        print(f"Global path: {global_path}")
+        tool_path: Path = global_path / tool_name
         if not tool_path.exists():
-            path = self.binaries.npm.parent
-            tool_path = path / tool_name
-            if not tool_path.exists():
-                raise FileNotFoundError(
-                    f"Could not find {tool_name} in {self.binaries.npm} or {path}"
-                )
+            raise FileNotFoundError(f"Could not find {tool_name} in {global_path}")
         cmd_list = [str(tool_path)] + cmd_list
         proc = RunningProcess(cmd_list, echo=echo)
         return proc
