@@ -28,6 +28,7 @@ class MainTester(unittest.TestCase):
         npm = Npm()
         npx = Npx()
         tool_dir = _get_tool_dir("live-server")
+        tool_dir.mkdir(exist_ok=True, parents=True)
         npm.run(["install", "live-server", "--prefix", str(tool_dir)])
         proc = npx.run(
             ["--prefix", str(tool_dir), "live-server", f"--port={PORT}", "--no-browser"]
