@@ -56,4 +56,5 @@ disable_error_code = ["import-untyped"]
 static-npm = "static_npm.cli:main_npm"
 static-node = "static_npm.cli:main_node"
 static-npx = "static_npm.cli:main_npx"
+static-npm-tool = "static_npm.cli:main_npm_tool"
 
