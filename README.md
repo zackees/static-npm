@@ -1,6 +1,6 @@
 # static-npm
 
-Downloads and runs `npm`, `npx` and `node` through static binary downloads.
+Downloads and runs `npm`, `npx` and `node` through static binary downloads. Cross-platform, Windows, Linux, MacOsArm, and MacOsx86 supported.
 
 [![Linting](https://github.com/zackees/static-npm/actions/workflows/lint.yml/badge.svg)](https://github.com/zackees/static-npm/actions/workflows/lint.yml)
 [![MacOS_Tests](https://github.com/zackees/static-npm/actions/workflows/test_macos.yml/badge.svg)](https://github.com/zackees/static-npm/actions/workflows/test_macos.yml)
